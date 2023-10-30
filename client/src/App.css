@@ -1,0 +1,7 @@
+.main {
+  background-color: var(--background-color);
+}
+
+.main__body {
+  min-height: 90vh;
+}
