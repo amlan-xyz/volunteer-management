@@ -11,12 +11,14 @@ app.use(cors());
 
 //routes
 const eventsRouter = require("./routes/events.router");
+const volunteersRouter = require("./routes/volunteer.router");
 
 app.get("/", (req, res) => {
   res.send("Volunteer Management System");
 });
 
 app.use("/events", eventsRouter);
+app.use("/volunteers", volunteersRouter);
 
 const PORT = process.env.PORT || 3001;
 
