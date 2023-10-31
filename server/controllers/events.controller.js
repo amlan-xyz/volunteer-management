@@ -28,7 +28,8 @@ const createEvent = async (eventData) => {
 
 const getAllEvents = async () => {
   try {
-    const events = await Event.find();
+    const events = await Event.find().populate("volunteers_registered");
+    console.log(events);
     return events;
   } catch (error) {
     console.error("Error getting events", error);

@@ -1,8 +1,16 @@
 const Volunteer = require("../models/volunteer.model");
+const Event = require("../models/events.model");
 
 const createVolunteer = async (volunteerData) => {
-  const { name, phone_no, address, skills, availability, interest } =
-    volunteerData;
+  const {
+    name,
+    phone_no,
+    address,
+    skills,
+    availability,
+    interest,
+    event_name,
+  } = volunteerData;
   try {
     const volunteer = {
       name,
@@ -13,7 +21,11 @@ const createVolunteer = async (volunteerData) => {
       interest,
     };
     const newVolunteer = new Volunteer(volunteer);
+    const event = await Event.findOne({ event_name });
+    newVolunteer.events_registered.push(event);
     const savedVolunteer = await newVolunteer.save();
+    event.volunteers_registered.push(savedVolunteer);
+    await event.save();
     return savedVolunteer;
   } catch (error) {
     console.error("Error adding volunteer", error);
@@ -22,7 +34,7 @@ const createVolunteer = async (volunteerData) => {
 
 const getAllVolunteers = async () => {
   try {
-    const volunteers = await Volunteer.find();
+    const volunteers = await Volunteer.find().populate("events_registered");
     return volunteers;
   } catch (error) {
     console.error("Error getting volunteers", error);

@@ -34,7 +34,8 @@ const EventsView = () => {
               <td>Event Time</td>
               <td>Event Location</td>
               <td>Event Description</td>
-              <td>No. of Volunteers</td>
+              <td>Volunteers Required</td>
+              <td>Registered Volunteers</td>
               <td>Details</td>
             </tr>
           </thead>
@@ -57,6 +58,11 @@ const EventsView = () => {
                   <td>{event_location}</td>
                   <td>{event_description}</td>
                   <td>{no_of_volunteers}</td>
+                  <td>
+                    <Link to={`/events/${_id}/volunteers`}>
+                      List of volunteers
+                    </Link>
+                  </td>
                   <td>
                     <Link to={`/events/${_id}`}>View</Link>
                   </td>

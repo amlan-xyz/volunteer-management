@@ -13,6 +13,7 @@ export const VolunteerForm = () => {
   const volunteer = useSelector((state) =>
     state.volunteer.volunteers.find(({ _id }) => _id === id)
   );
+  const { events } = useSelector((state) => state.event);
 
   const [name, setName] = useState(volunteer ? volunteer.name : "");
   const [phoneNo, setPhoneNo] = useState(volunteer ? volunteer.phone_no : "");
@@ -22,7 +23,7 @@ export const VolunteerForm = () => {
     volunteer ? volunteer.availability : ""
   );
   const [interest, setInterest] = useState(volunteer ? volunteer.interest : "");
-
+  const [eventName, setEventName] = useState("");
   const dispatch = useDispatch();
 
   const handleSumbit = (e) => {
@@ -34,6 +35,7 @@ export const VolunteerForm = () => {
       skills,
       availability,
       interest,
+      event_name: eventName,
     };
     if (volunteer) {
       dispatch(
@@ -109,6 +111,20 @@ export const VolunteerForm = () => {
             value={interest}
             onChange={(e) => setInterest(e.target.value)}
           />
+        </div>
+        <div className="form__item">
+          <label htmlFor="event">Register</label>
+          <select
+            id="event"
+            onChange={(e) => setEventName(e.target.value)}
+            value={eventName}
+          >
+            <option value="">Select</option>
+            {events &&
+              events.map((event) => (
+                <option value={event.event_name}>{event.event_name}</option>
+              ))}
+          </select>
         </div>
         <div className="form__item">
           <button className="submit__btn" onClick={handleSumbit}>
