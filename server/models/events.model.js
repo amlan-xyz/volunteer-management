@@ -26,9 +26,10 @@ const eventSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    volunteers: [
+    volunteers_registered: [
       {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Volunteer",
       },
     ],
   },
