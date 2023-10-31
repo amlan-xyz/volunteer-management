@@ -118,23 +118,6 @@ export const eventsSlice = createSlice({
       state.status = "error";
       state.error = action.error.message;
     },
-    [addExistingVolunteerAsync.pending]: (state) => {
-      state.status = "loading";
-    },
-    [addExistingVolunteerAsync.fulfilled]: (state, action) => {
-      state.status = "success";
-      const updatedEvent = action.payload;
-      const index = state.events.findIndex(
-        (event) => event._id === updatedEvent._id
-      );
-      if (index !== -1) {
-        state.events[index] = updatedEvent;
-      }
-    },
-    [addExistingVolunteerAsync.rejected]: (state, action) => {
-      state.status = "error";
-      state.error = action.error.message;
-    },
   },
 });
 

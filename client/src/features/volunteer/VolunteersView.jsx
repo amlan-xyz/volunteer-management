@@ -33,7 +33,7 @@ const VolunteersView = () => {
               <td>Skills</td>
               <td>Availability</td>
               <td>Interest</td>
-              <td>Events Registered</td>
+              <td>Summary</td>
               <td>Details</td>
             </tr>
           </thead>

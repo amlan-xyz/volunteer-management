@@ -28,10 +28,22 @@ ul {
   box-shadow: var(--shadow);
   padding: 0.7rem 1rem;
   background-color: var(--primary-color);
-  color: var(--background-color);
+  font-size: 1rem;
   min-width: 100px;
   text-align: center;
+  border: none;
 }
+
+/* .secondary_btn {
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  padding: 0.7rem 1rem;
+  background-color: #d41d6d;
+  font-size: 1rem;
+  min-width: 100px;
+  text-align: center;
+  border: none;
+} */
 
 .heading {
   display: flex;

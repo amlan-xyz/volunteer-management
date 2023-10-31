@@ -85,12 +85,15 @@ export const UpdateVolunteerForm = () => {
         </div>
         <div className="form__item">
           <label htmlFor="availability">Availability</label>
-          <input
-            type="text"
+          <select
             id="availability"
             value={availability}
             onChange={(e) => setAvailability(e.target.value)}
-          />
+          >
+            <option value="">Select</option>
+            <option value="Available">Available</option>
+            <option value="Not-Available">Not-Available</option>
+          </select>
         </div>
         <div className="form__item">
           <label htmlFor="interest">Interest</label>

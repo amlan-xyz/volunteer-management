@@ -58,28 +58,9 @@ const updateEvent = async (eventId, updatedData) => {
   }
 };
 
-const addVolunteer = async (eventId, volunteerId, roleAssigned) => {
-  try {
-    const event = await Event.findById(eventId);
-    const volunteer = await Volunteer.findById(volunteerId);
-    const registerdEvent = {
-      event,
-      role: roleAssigned,
-    };
-    volunteer.events_registered.push(registerdEvent);
-    event.volunteers_registered.push(volunteer);
-    await event.save();
-    await volunteer.save();
-    return event;
-  } catch (error) {
-    console.error("Error adding volunteer", error);
-  }
-};
-
 module.exports = {
   createEvent,
   getAllEvents,
   deleteEvent,
   updateEvent,
-  addVolunteer,
 };

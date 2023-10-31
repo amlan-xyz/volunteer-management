@@ -25,8 +25,6 @@ export const getVolunteersAsync = createAsyncThunk(
 export const updateVolunteerAsync = createAsyncThunk(
   "volunteers/updateVolunteer",
   async ({ volunteerId, updatedVolunteerData }) => {
-    console.log(volunteerId);
-    console.log(updatedVolunteerData);
     const response = await axios.put(
       `${url}/volunteers/${volunteerId}`,
       updatedVolunteerData
