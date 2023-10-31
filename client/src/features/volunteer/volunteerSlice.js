@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const url = "https://volunteer-management-backend-wozq.onrender.com";
+import { BASE_URL } from "../../helper";
+
+const url = BASE_URL;
 export const addVolunteerAsync = createAsyncThunk(
   "volunteers/addVolunteer",
   async (volunteerData) => {
@@ -23,6 +25,8 @@ export const getVolunteersAsync = createAsyncThunk(
 export const updateVolunteerAsync = createAsyncThunk(
   "volunteers/updateVolunteer",
   async ({ volunteerId, updatedVolunteerData }) => {
+    console.log(volunteerId);
+    console.log(updatedVolunteerData);
     const response = await axios.put(
       `${url}/volunteers/${volunteerId}`,
       updatedVolunteerData

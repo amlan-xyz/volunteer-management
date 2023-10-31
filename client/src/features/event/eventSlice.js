@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const url = "https://volunteer-management-backend-wozq.onrender.com";
+import { BASE_URL } from "../../helper";
+
+const url = BASE_URL;
 
 export const createEventAsync = createAsyncThunk(
   "events/createEvent",

@@ -49,12 +49,14 @@ const getAllVolunteers = async () => {
 };
 
 const updateVolunteer = async (volunteerId, updatedData) => {
+  console.log(volunteerId, updatedData);
   try {
     const updatedVolunteer = await Volunteer.findByIdAndUpdate(
       volunteerId,
       updatedData,
       { new: true }
     );
+    await updatedVolunteer.save();
     return updatedVolunteer;
   } catch (error) {
     console.error("Error updating volunteer", error);

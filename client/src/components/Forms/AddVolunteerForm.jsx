@@ -1,22 +1,18 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { editEventAsync } from "../../features/event/eventSlice";
 import {
   addVolunteerAsync,
-  getVolunteersAsync,
+  updateVolunteerAsync,
 } from "../../features/volunteer/volunteerSlice";
-
-import {
-  addExistingVolunteerAsync,
-  getEventsAsync,
-} from "../../features/event/eventSlice";
 
 export const VolunteerForm = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { status, volunteers } = useSelector((state) => state.volunteer);
   const event = state ? state : null;
-  const [volunteerId, setVolunteerId] = useState("");
+  const [volunteer, setVolunteer] = useState({});
 
   const [form, setForm] = useState(false);
   const [modal, setModal] = useState(false);
@@ -53,32 +49,45 @@ export const VolunteerForm = () => {
   const getEventRoles = () => {
     console.log(event);
     setEventRoles(event.event_roles.split(","));
-    console.log(eventRoles);
+    // console.log(eventRoles);
   };
 
-  const addVolunteer = () => {
-    console.log({
-      eventId: event._id,
-      volunteerId,
+  const addVolunteer = (e) => {
+    e.preventDefault();
+    const newEvent = {
+      event,
       role,
-    });
+    };
+
     dispatch(
-      addExistingVolunteerAsync({
-        eventId: event._id,
-        volunteerId,
-        role,
+      updateVolunteerAsync({
+        volunteerId: volunteer._id,
+        updatedVolunteerData: {
+          events_registered: [...volunteer.events_registered, newEvent],
+        },
       })
     );
-    dispatch(getVolunteersAsync());
-    dispatch(getEventsAsync());
+
+    dispatch(
+      editEventAsync({
+        eventId: event._id,
+        updatedEventData: {
+          volunteers_registered: [...event.volunteers_registered, volunteer],
+        },
+      })
+    );
     navigate("/");
   };
 
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(getVolunteersAsync());
-    }
-  }, [status, dispatch]);
+  // useEffect(() => {
+  //   if (status === "idle") {
+  //     dispatch(getVolunteersAsync());
+  //   }
+  // }, [status, dispatch]);
+
+  const getVolunteer = (volunteerId) => {
+    setVolunteer(volunteers.find(({ _id }) => _id === volunteerId));
+  };
 
   useEffect(() => {
     getEventRoles();
@@ -209,7 +218,7 @@ export const VolunteerForm = () => {
                   <td>
                     <button
                       onClick={() => {
-                        setVolunteerId(_id);
+                        getVolunteer(_id);
                         setModal(!modal);
                       }}
                     >
