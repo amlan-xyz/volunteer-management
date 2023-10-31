@@ -9,10 +9,8 @@ const EventsView = () => {
   const { status, events, error } = useSelector((state) => state.event);
 
   useEffect(() => {
-    if (status === "idle") {
-      dispatch(getEventsAsync());
-    }
-  }, [status, dispatch]);
+    dispatch(getEventsAsync());
+  }, [dispatch]);
 
   return (
     <div className="container">
@@ -34,8 +32,11 @@ const EventsView = () => {
               <td>Event Time</td>
               <td>Event Location</td>
               <td>Event Description</td>
+              <td>Event Roles</td>
               <td>Volunteers Required</td>
+              <td>Add Volunteers</td>
               <td>Registered Volunteers</td>
+
               <td>Details</td>
             </tr>
           </thead>
@@ -48,6 +49,7 @@ const EventsView = () => {
                 event_time,
                 event_location,
                 event_description,
+                event_roles,
                 no_of_volunteers,
               } = event;
               return (
@@ -57,7 +59,13 @@ const EventsView = () => {
                   <td>{event_time}</td>
                   <td>{event_location}</td>
                   <td>{event_description}</td>
+                  <td>{event_roles}</td>
                   <td>{no_of_volunteers}</td>
+                  <td>
+                    <Link to={`/volunteers/add`} state={event}>
+                      Add
+                    </Link>
+                  </td>
                   <td>
                     <Link to={`/events/${_id}/volunteers`}>
                       List of volunteers

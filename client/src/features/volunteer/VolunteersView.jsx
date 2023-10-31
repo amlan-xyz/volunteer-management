@@ -9,18 +9,16 @@ const VolunteersView = () => {
   const { status, volunteers, error } = useSelector((state) => state.volunteer);
 
   useEffect(() => {
-    if (status === "idle") {
-      dispatch(getVolunteersAsync());
-    }
-  }, [status, dispatch]);
+    dispatch(getVolunteersAsync());
+  }, [dispatch]);
 
   return (
     <div className="container">
       <div className="heading">
         <h1>List of Volunteers</h1>
-        <Link className="primary__btn" to="/volunteers/add">
+        {/* <Link className="primary__btn" to="/volunteers/add">
           Add Volunteer
-        </Link>
+        </Link> */}
       </div>
 
       {status === "loading" ? (
@@ -35,8 +33,8 @@ const VolunteersView = () => {
               <td>Skills</td>
               <td>Availability</td>
               <td>Interest</td>
-              <td>Details</td>
               <td>Events Registered</td>
+              <td>Details</td>
             </tr>
           </thead>
           <tbody>

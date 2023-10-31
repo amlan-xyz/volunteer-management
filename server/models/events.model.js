@@ -22,6 +22,10 @@ const eventSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    event_roles: {
+      type: String,
+      required: true,
+    },
     no_of_volunteers: {
       type: Number,
       required: true,

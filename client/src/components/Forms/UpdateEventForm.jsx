@@ -1,18 +1,29 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { createEventAsync } from "../../features/event/eventSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { editEventAsync } from "../../features/event/eventSlice";
 
-export const EventForm = () => {
+export const UpdateEventForm = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  const [eventName, setEventName] = useState("");
-  const [eventDate, setEventDate] = useState("");
-  const [eventTime, setEventTime] = useState("");
-  const [eventLocation, setEventLocation] = useState("");
-  const [eventDescription, setEventDescription] = useState("");
-  const [noOfVolunteers, setNoOfVolunteers] = useState("");
-  const [eventRoles, setEventRoles] = useState("");
+  const event = useSelector((state) =>
+    state.event.events.find(({ _id }) => _id === id)
+  );
+
+  const [eventName, setEventName] = useState(event ? event.event_name : "");
+  const [eventDate, setEventDate] = useState(event ? event.event_date : "");
+  const [eventTime, setEventTime] = useState(event ? event.event_time : "");
+  const [eventLocation, setEventLocation] = useState(
+    event ? event.event_location : ""
+  );
+  const [eventDescription, setEventDescription] = useState(
+    event ? event.event_description : ""
+  );
+  const [noOfVolunteers, setNoOfVolunteers] = useState(
+    event ? event.no_of_volunteers : ""
+  );
+  const [eventRoles, setEventRoles] = useState(event ? event.event_roles : "");
 
   const dispatch = useDispatch();
 
@@ -28,14 +39,18 @@ export const EventForm = () => {
       event_roles: eventRoles,
     };
 
-    dispatch(createEventAsync(newEvent));
-
+    dispatch(
+      editEventAsync({
+        eventId: event._id,
+        updatedEventData: newEvent,
+      })
+    );
     navigate("/");
   };
 
   return (
     <div className="form__container">
-      <h2>Add Event Details</h2>
+      <h2>Edit Event Details</h2>
       <form action="" className="form__body">
         <div className="form__item">
           <label htmlFor="name">Event Name</label>
@@ -103,7 +118,7 @@ export const EventForm = () => {
         </div>
         <div className="form__item">
           <button className="submit__btn" onClick={handleSumbit}>
-            Add Event
+            Update Event
           </button>
         </div>
       </form>

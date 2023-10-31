@@ -7,6 +7,7 @@ const {
   getAllEvents,
   deleteEvent,
   updateEvent,
+  addVolunteer,
 } = require("../controllers/events.controller");
 
 router.post("", async (req, res) => {
@@ -59,6 +60,22 @@ router.put("/:id", async (req, res) => {
     const updatedEvent = await updateEvent(eventId, updatedData);
     if (updatedEvent) {
       res.status(200).json({ message: "Event updated", data: updatedEvent });
+    } else {
+      res.status(404).json({ message: "Event not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.post("/:event_id/volunteers/:volunteer_id", async (req, res) => {
+  const eventId = req.params.event_id;
+  const volunteerId = req.params.volunteer_id;
+  const { role } = req.body;
+  try {
+    const updatedEvent = await addVolunteer(eventId, volunteerId, role);
+    if (updatedEvent) {
+      res.status(200).json({ message: "Volunteer added", data: updatedEvent });
     } else {
       res.status(404).json({ message: "Event not found" });
     }

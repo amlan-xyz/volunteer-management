@@ -39,6 +39,18 @@ export const getEventsAsync = createAsyncThunk("events/getEvents", async () => {
   return data;
 });
 
+export const addExistingVolunteerAsync = createAsyncThunk(
+  "events/addVolunteer",
+  async ({ eventId, volunteerId, role }) => {
+    const response = await axios.post(
+      `${url}/events/${eventId}/volunteers/${volunteerId}`,
+      role
+    );
+    const { data } = response.data;
+    return data;
+  }
+);
+
 const initialState = {
   events: [],
   status: "idle",
@@ -101,6 +113,23 @@ export const eventsSlice = createSlice({
       state.events = action.payload;
     },
     [getEventsAsync.rejected]: (state, action) => {
+      state.status = "error";
+      state.error = action.error.message;
+    },
+    [addExistingVolunteerAsync.pending]: (state) => {
+      state.status = "loading";
+    },
+    [addExistingVolunteerAsync.fulfilled]: (state, action) => {
+      state.status = "success";
+      const updatedEvent = action.payload;
+      const index = state.events.findIndex(
+        (event) => event._id === updatedEvent._id
+      );
+      if (index !== -1) {
+        state.events[index] = updatedEvent;
+      }
+    },
+    [addExistingVolunteerAsync.rejected]: (state, action) => {
       state.status = "error";
       state.error = action.error.message;
     },

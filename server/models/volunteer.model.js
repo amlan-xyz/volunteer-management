@@ -24,8 +24,11 @@ const volunteerSchema = new mongoose.Schema(
     ],
     events_registered: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Event",
+        event: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Event",
+        },
+        role: String,
       },
     ],
   },

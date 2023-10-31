@@ -10,6 +10,7 @@ const createVolunteer = async (volunteerData) => {
     availability,
     interest,
     event_name,
+    event_role,
   } = volunteerData;
   try {
     const volunteer = {
@@ -22,7 +23,11 @@ const createVolunteer = async (volunteerData) => {
     };
     const newVolunteer = new Volunteer(volunteer);
     const event = await Event.findOne({ event_name });
-    newVolunteer.events_registered.push(event);
+    const registerdEvent = {
+      event,
+      role: event_role,
+    };
+    newVolunteer.events_registered.push(registerdEvent);
     const savedVolunteer = await newVolunteer.save();
     event.volunteers_registered.push(savedVolunteer);
     await event.save();
@@ -34,7 +39,9 @@ const createVolunteer = async (volunteerData) => {
 
 const getAllVolunteers = async () => {
   try {
-    const volunteers = await Volunteer.find().populate("events_registered");
+    const volunteers = await Volunteer.find().populate(
+      "events_registered.event"
+    );
     return volunteers;
   } catch (error) {
     console.error("Error getting volunteers", error);

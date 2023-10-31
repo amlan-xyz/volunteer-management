@@ -16,33 +16,24 @@ export const EventsList = () => {
         <thead>
           <tr>
             <td>Event Name</td>
+            <td>Role Assigned</td>
             <td>Event Date</td>
             <td>Event Time</td>
             <td>Event Location</td>
-            <td>Event Description</td>
-            <td>Volunteers Required</td>
             <td>Details</td>
           </tr>
         </thead>
         <tbody>
-          {volunteer.events_registered.map((event) => {
-            const {
-              _id,
-              event_name,
-              event_date,
-              event_time,
-              event_location,
-              event_description,
-              no_of_volunteers,
-            } = event;
+          {volunteer.events_registered.map((item) => {
+            const { _id, event_name, event_date, event_time, event_location } =
+              item.event;
             return (
               <tr key={_id} className="list__item">
                 <td>{event_name}</td>
+                <td>{item.role}</td>
                 <td>{event_date}</td>
                 <td>{event_time}</td>
                 <td>{event_location}</td>
-                <td>{event_description}</td>
-                <td>{no_of_volunteers}</td>
                 <td>
                   <Link to={`/events/${_id}`}>View</Link>
                 </td>
