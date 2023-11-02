@@ -57,7 +57,7 @@ const VolunteersView = () => {
                   <td>{availability}</td>
                   <td>{interest}</td>
                   <td>
-                    <Link to={`/volunteers/${_id}/events`}>Events List</Link>
+                    <Link to={`/volunteers/${_id}/summary`}>View</Link>
                   </td>
                   <td>
                     <Link to={`/volunteers/${_id}`}>View</Link>

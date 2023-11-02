@@ -51,6 +51,10 @@ ul {
   justify-content: space-between;
 }
 
+.heading h1 {
+  text-decoration: underline;
+}
+
 .container {
   padding: 50px 100px;
 }

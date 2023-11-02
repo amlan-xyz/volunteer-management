@@ -239,7 +239,9 @@ export const VolunteerForm = () => {
                 </select>
               </div>
               <div className="form__item">
-                <button onClick={addVolunteer}>Add </button>
+                <button className="secondary__btn" onClick={addVolunteer}>
+                  Add{" "}
+                </button>
               </div>
             </form>
           </div>

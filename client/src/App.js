@@ -9,8 +9,9 @@ import { EventForm } from "./components/Forms/AddEventForm";
 import { VolunteerForm } from "./components/Forms/AddVolunteerForm";
 import { UpdateEventForm } from "./components/Forms/UpdateEventForm";
 import { UpdateVolunteerForm } from "./components/Forms/UpdateVolunteerForm";
-import { EventsList } from "./components/Lists/EventsList";
 import { VolunteersList } from "./components/Lists/VolunteersList";
+import { EventSummary } from "./components/Summary/EventSummary";
+import { VolunteerSummary } from "./components/Summary/VolunteerSummary";
 import { EventDetails } from "./features/event/EventDetails";
 import { VolunteerDetails } from "./features/volunteer/VolunteerDetails";
 import VolunteersView from "./features/volunteer/VolunteersView";
@@ -26,10 +27,14 @@ function App() {
           <Route path="/events/:id" element={<EventDetails />} />
           <Route path="/events/:id/volunteers" element={<VolunteersList />} />
           <Route path="/events/:id/edit" element={<UpdateEventForm />} />
+          <Route path="/events/:id/summary" element={<EventSummary />} />
           <Route path="/volunteers" element={<VolunteersView />} />
           <Route path="/volunteers/add" element={<VolunteerForm />} />
           <Route path="/volunteers/:id" element={<VolunteerDetails />} />
-          <Route path="/volunteers/:id/events" element={<EventsList />} />
+          <Route
+            path="/volunteers/:id/summary"
+            element={<VolunteerSummary />}
+          />
           <Route
             path="/volunteers/:id/edit"
             element={<UpdateVolunteerForm />}

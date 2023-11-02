@@ -29,11 +29,9 @@ const EventsView = () => {
             <tr>
               <td>Event Name</td>
               <td>Event Date</td>
-              <td>Event Time</td>
-              <td>Event Location</td>
               <td>Event Description</td>
               <td>Event Roles</td>
-              <td>Volunteers Required</td>
+              <td>Volunteers</td>
               <td>Add Volunteers</td>
               <td>Summary</td>
               <td>Details</td>
@@ -55,9 +53,12 @@ const EventsView = () => {
                 <tr key={_id} className="list__item">
                   <td>{event_name}</td>
                   <td>{event_date}</td>
-                  <td>{event_time}</td>
-                  <td>{event_location}</td>
-                  <td>{event_description}</td>
+                  <td>
+                    {event_description} <br />
+                    <b>
+                      Venue : {event_location} at {event_time}
+                    </b>
+                  </td>
                   <td>{event_roles}</td>
                   <td>{no_of_volunteers}</td>
                   <td>
@@ -66,9 +67,7 @@ const EventsView = () => {
                     </Link>
                   </td>
                   <td>
-                    <Link to={`/events/${_id}/volunteers`}>
-                      Volunteers List
-                    </Link>
+                    <Link to={`/events/${_id}/summary`}>View</Link>
                   </td>
                   <td>
                     <Link to={`/events/${_id}`}>View</Link>
